@@ -846,8 +846,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
   <div class="container">
     <div class="section-header reveal">
       <span class="kicker-num">15 — CÓMO CALCULAR EL VALOR</span>
-      <h2>De pacientes a impresiones. <span class="text-cyan">Movélo vos.</span></h2>
-      <p>Con cuatro variables se estima el alcance real del canal y se construye el media kit para vender publicidad. Ajustá los valores y mirá cómo cambia el potencial de tu institución.</p>
+      <h2>Tu flujo de pacientes <span class="text-cyan">es tu audiencia.</span></h2>
+      <p>Vos conocés tus números: pacientes, acompañantes, pantallas. Con eso estimamos el alcance real del canal — y a partir de ahí Popcorn arma el media kit y define cuánto vale cada espacio. Movés los valores y ves el potencial.</p>
     </div>
     <div class="sim reveal">
       <div class="sim-controls">
@@ -867,22 +867,19 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
           <label>Días operativos / mes <span class="val" id="v-day">26</span></label>
           <input type="range" id="day" min="20" max="31" step="1" value="26">
         </div>
-        <div class="field">
-          <label>CPM estimado (USD) * <span class="val" id="v-cpm">$8</span></label>
-          <input type="range" id="cpm" min="3" max="25" step="1" value="8">
-        </div>
+        <p class="muted" style="margin-top:6px">Solo datos que ya conocés. El valor comercial lo calcula Popcorn.</p>
       </div>
       <div class="sim-out">
         <div class="big" id="o-imp">9.300</div>
         <div class="big-lbl">Personas alcanzadas / mes</div>
         <div class="divider"></div>
         <div class="sub">
-          <div><div class="v" id="o-adimp">33,4 K</div><div class="l">Impresiones de aviso / mes</div></div>
-          <div><div class="v" id="o-rev">USD 267</div><div class="l">Potencial / sponsor / mes **</div></div>
+          <div><div class="v" id="o-adimp">30,4 K</div><div class="l">Impresiones de aviso / mes</div></div>
+          <div><div class="v" id="o-rev">USD 150 – 455</div><div class="l">Potencial por sponsor / mes*</div></div>
         </div>
         <div class="sim-disc">
-          <strong style="color:var(--gray-300)">* CPM (costo por mil impresiones):</strong> es lo que un anunciante paga por cada 1.000 impresiones de su aviso. Es la unidad estándar con la que se vende publicidad en pantallas y medios digitales.<br><br>
-          ** Estimación referencial. Las personas se cuentan por visita (no por pantalla); las pantallas suman cobertura y probabilidad de visualización. Los CPM se basan en referencias internacionales de DOOH — para Argentina se ajustan a la baja según la demanda local. No constituye una garantía de ingresos.
+          <strong style="color:var(--gray-300)">Vos ponés el flujo de pacientes; nosotros le ponemos precio.</strong> No necesitás saber de métricas publicitarias: con estos datos Popcorn arma el media kit y define el valor comercial de cada espacio, según referencias del mercado.<br><br>
+          * Estimación referencial. Las personas se cuentan por visita, no por pantalla. El rango surge de valores de mercado de publicidad en pantallas, ajustables a la demanda local. No constituye una garantía de ingresos.
         </div>
       </div>
     </div>
@@ -983,27 +980,27 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 // Revenue simulator
 (function(){
   const fmt=new Intl.NumberFormat('es-AR');
-  const els={pac:'v-pac',acc:'v-acc',scr:'v-scr',day:'v-day',cpm:'v-cpm'};
   const $=id=>document.getElementById(id);
+  // Banda de valor de mercado (CPM referencial, USD). La maneja Popcorn — el cliente no la define.
+  const CPM_LOW=5, CPM_HIGH=15;
   function calc(){
-    const pac=+$('pac').value, acc=+$('acc').value, scr=+$('scr').value, day=+$('day').value, cpm=+$('cpm').value;
+    const pac=+$('pac').value, acc=+$('acc').value, scr=+$('scr').value, day=+$('day').value;
     $('v-pac').textContent=fmt.format(pac);
     $('v-acc').textContent=acc.toLocaleString('es-AR',{minimumFractionDigits:1,maximumFractionDigits:1});
     $('v-scr').textContent=scr;
     $('v-day').textContent=day;
-    $('v-cpm').textContent='$'+cpm;
     // Más pantallas => mayor probabilidad de que la persona vea el contenido (cobertura),
     // NUNCA se multiplican las impresiones por pantalla (ese fue el error del caso Outcome Health).
     const viewRate=Math.min(0.92, 0.70 + scr*0.012);
     const people=pac*acc*day*viewRate;            // personas-visita / mes
     const exposures=3.6;            // exposiciones por persona (dwell ~18min / loop ~5min)
     const adImp=people*exposures;   // impresiones de aviso / mes
-    const rev=(adImp/1000)*cpm;     // potencial por sponsor / mes
+    const revLow=(adImp/1000)*CPM_LOW, revHigh=(adImp/1000)*CPM_HIGH;
     $('o-imp').textContent=fmt.format(Math.round(people));
     $('o-adimp').textContent=(adImp>=1000?(adImp/1000).toLocaleString('es-AR',{maximumFractionDigits:1})+' K':fmt.format(Math.round(adImp)));
-    $('o-rev').textContent='USD '+fmt.format(Math.round(rev));
+    $('o-rev').textContent='USD '+fmt.format(Math.round(revLow))+' – '+fmt.format(Math.round(revHigh));
   }
-  ['pac','acc','scr','day','cpm'].forEach(id=>$(id).addEventListener('input',calc));
+  ['pac','acc','scr','day'].forEach(id=>$(id).addEventListener('input',calc));
   calc();
 })();
 </script>
