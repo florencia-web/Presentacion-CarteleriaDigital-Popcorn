@@ -339,9 +339,6 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .video-poster:hover .vp-play{transform:scale(1.07)}
 .vp-play svg{width:30px;height:30px;fill:#0A0A0A;margin-left:4px}
 .vp-label{position:relative;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#fff}
-.vp-sm .vp-play{width:52px;height:52px;box-shadow:0 0 0 8px rgba(94,234,212,0.16),0 10px 30px rgba(0,0,0,0.5)}
-.vp-sm .vp-play svg{width:22px;height:22px}
-.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vp-kicker{position:relative;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan)}
 
 /* small helpers */
@@ -540,6 +537,15 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
       <h2>No entregamos placas sueltas.<br>Construimos <span class="text-cyan">un canal vivo</span>.</h2>
       <p>Diseñamos estructuras de contenido propias, animadas y reconocibles, que se renuevan mes a mes. Cada formato es una sección de tu medio — como los segmentos de un programa de TV.</p>
     </div>
+    <div class="video-wrap reveal" style="max-width:960px;margin:0 auto 48px">
+      <div class="ratio" data-yt="4FCcKbrIRK4">
+        <button class="video-poster has-cover" aria-label="Reproducir reel de cartelería digital" style="background-image:linear-gradient(rgba(10,8,20,0.30),rgba(10,8,20,0.55)),url('assets/frames/reel-canal-cover.jpg')">
+          <span class="vp-kicker">Reel</span>
+          <span class="vp-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="vp-label">Así se ve un canal Popcorn en movimiento</span>
+        </button>
+      </div>
+    </div>
     <div class="fmt-grid reveal">
       <div class="fmt"><span class="em">💡</span><div>¿Sabías que…?<small>Curiosidades de salud</small></div></div>
       <div class="fmt"><span class="em">❓</span><div>Trivia<small>Participación e interacción</small></div></div>
@@ -598,7 +604,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
       <div class="tv"><div class="screen"><img src="assets/frames/austral_fechas.jpg" alt="Fechas de salud"></div><div class="tv-foot"><span>Fechas de salud</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/austral_alerta.jpg" alt="Señales de alerta"></div><div class="tv-foot"><span>Señales de alerta</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/medicina_hero.jpg" alt="Contenido de bienestar"></div><div class="tv-foot"><span>Bienestar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
-      <div class="tv"><div class="screen" data-yt="4FCcKbrIRK4"><button class="video-poster has-cover vp-sm" aria-label="Reproducir video de entretenimiento" style="background-image:linear-gradient(rgba(10,8,20,0.25),rgba(10,8,20,0.5)),url('assets/frames/jugar_hero.jpg')"><span class="vp-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button></div><div class="tv-foot"><span>Momento de jugar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
+      <div class="tv"><div class="screen"><img src="assets/frames/jugar_hero.jpg" alt="Entretenimiento"></div><div class="tv-foot"><span>Momento de jugar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/club_hero.jpg" alt="Club de beneficios"></div><div class="tv-foot"><span>Beneficios</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/fleni_innovacion.jpg" alt="Innovación tecnológica"></div><div class="tv-foot"><span>Innovación tecnológica</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/fleni_sinturno.jpg" alt="Atención sin turno"></div><div class="tv-foot"><span>Atención sin turno</span><span class="live"><span class="dot"></span>Loop</span></div></div>
@@ -980,7 +986,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   });
 })();
 
-// YouTube en pantallas de la galería: clic para reproducir
+// YouTube: clic en la portada para reproducir
 document.querySelectorAll('[data-yt]').forEach(scr=>{
   const b=scr.querySelector('.video-poster'); if(!b)return;
   b.addEventListener('click',()=>{
