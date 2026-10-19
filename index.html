@@ -339,6 +339,9 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .video-poster:hover .vp-play{transform:scale(1.07)}
 .vp-play svg{width:30px;height:30px;fill:#0A0A0A;margin-left:4px}
 .vp-label{position:relative;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#fff}
+.vp-sm .vp-play{width:52px;height:52px;box-shadow:0 0 0 8px rgba(94,234,212,0.16),0 10px 30px rgba(0,0,0,0.5)}
+.vp-sm .vp-play svg{width:22px;height:22px}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vp-kicker{position:relative;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan)}
 
 /* small helpers */
@@ -595,7 +598,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
       <div class="tv"><div class="screen"><img src="assets/frames/austral_fechas.jpg" alt="Fechas de salud"></div><div class="tv-foot"><span>Fechas de salud</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/austral_alerta.jpg" alt="Señales de alerta"></div><div class="tv-foot"><span>Señales de alerta</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/medicina_hero.jpg" alt="Contenido de bienestar"></div><div class="tv-foot"><span>Bienestar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
-      <div class="tv"><div class="screen"><img src="assets/frames/jugar_hero.jpg" alt="Entretenimiento"></div><div class="tv-foot"><span>Momento de jugar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
+      <div class="tv"><div class="screen" data-yt="4FCcKbrIRK4"><button class="video-poster has-cover vp-sm" aria-label="Reproducir video de entretenimiento" style="background-image:linear-gradient(rgba(10,8,20,0.25),rgba(10,8,20,0.5)),url('assets/frames/jugar_hero.jpg')"><span class="vp-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button></div><div class="tv-foot"><span>Momento de jugar</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/club_hero.jpg" alt="Club de beneficios"></div><div class="tv-foot"><span>Beneficios</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/fleni_innovacion.jpg" alt="Innovación tecnológica"></div><div class="tv-foot"><span>Innovación tecnológica</span><span class="live"><span class="dot"></span>Loop</span></div></div>
       <div class="tv"><div class="screen"><img src="assets/frames/fleni_sinturno.jpg" alt="Atención sin turno"></div><div class="tv-foot"><span>Atención sin turno</span><span class="live"><span class="dot"></span>Loop</span></div></div>
@@ -976,6 +979,17 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     wrap.innerHTML='';wrap.appendChild(f);
   });
 })();
+
+// YouTube en pantallas de la galería: clic para reproducir
+document.querySelectorAll('[data-yt]').forEach(scr=>{
+  const b=scr.querySelector('.video-poster'); if(!b)return;
+  b.addEventListener('click',()=>{
+    const f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+scr.dataset.yt+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title='Reel Cartelería Digital Popcorn';f.referrerPolicy='strict-origin-when-cross-origin';
+    scr.innerHTML='';scr.appendChild(f);
+  });
+});
 
 // Revenue simulator
 (function(){
